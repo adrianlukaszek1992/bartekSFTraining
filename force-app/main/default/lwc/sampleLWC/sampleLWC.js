@@ -3,7 +3,7 @@ import { NavigationMixin } from 'lightning/navigation';
 import getRecentModifiedAccounts from "@salesforce/apex/AccountListController.getRecentModifiedAccounts"
 
 // Fields to Display for Selected record in RecordForm
-const fields=['Name','AccountNumber','OwnerId','AccountSource','ParentId','AnnualRevenue','Type','CreatedById','LastModifiedById','Industry','Description','Phone'];
+const fields=['Name','AccountNumber','OwnerId','AccountSource','ParentId','AnnualRevenue','Type','CreatedById','LastModifiedById','Industry','Phone'];
 
 const columns = [ 
     {label: 'Account Name', fieldName: 'recordId', type: 'url', typeAttributes: { label:{fieldName:'Name'}, tooltip:{fieldName:'Name'}, target: '_parent'}},
@@ -37,7 +37,9 @@ export default class Sample_LWC extends NavigationMixin(LightningElement) {
                     OwnerId: '/lightning/r/'+account.Owner.Id+'/view',
                     OwnerName: account.Owner.Name,
                 });
-                rows.push(accountObj);
+                
+                    rows.push(accountObj);
+                
             });
             this.accounts = rows;
         }else{

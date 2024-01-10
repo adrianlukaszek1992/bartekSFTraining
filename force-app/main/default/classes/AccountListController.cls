@@ -18,7 +18,8 @@ public with sharing class AccountListController {
                 BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry,
                 Website
                 FROM Account 
+                WHERE Name != 'Pyramid Construction Inc.'
                 Order By LastModifiedDate desc 
-                limit 15];
+                limit 3];
     }
 }
