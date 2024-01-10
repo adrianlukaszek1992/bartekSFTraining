@@ -37,9 +37,9 @@ export default class Sample_LWC extends NavigationMixin(LightningElement) {
                     OwnerId: '/lightning/r/'+account.Owner.Id+'/view',
                     OwnerName: account.Owner.Name,
                 });
-                if(accountObj.Name !== 'Pyramid Construction Inc.'){
+                
                     rows.push(accountObj);
-                }
+                
             });
             this.accounts = rows;
         }else{
