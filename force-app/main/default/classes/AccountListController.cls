@@ -16,7 +16,7 @@ public with sharing class AccountListController {
         return [SELECT Id, Name, AccountNumber, OwnerId, Owner.Name, AccountSource,  
                 AnnualRevenue, Type, Industry,
                 BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry,
-                Website
+                Website, LastModifiedById, NumberofLocations__c
                 FROM Account 
                 WHERE Name != 'Pyramid Construction Inc.'
                 Order By LastModifiedDate desc 

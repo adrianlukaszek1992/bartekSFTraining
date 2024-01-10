@@ -14,6 +14,8 @@ const columns = [
     {label: 'Website', fieldName: 'Website', type: 'url', typeAttributes: { target: '_parent'}},
     {label: 'Industry', fieldName: 'Industry', type: 'text'},
     {label: 'Account Owner', fieldName: 'OwnerId', type: 'url', typeAttributes: { label:{fieldName:'OwnerName'}, tooltip:{fieldName:'OwnerName'}, target: '_parent'}},
+    {label: 'Num. of locations', fieldName: 'NumberofLocations__c', type: 'text'},
+    {label: 'last modified by', fieldName: 'LastModifiedById', type: 'text'},
 ];
 
 export default class Sample_LWC extends NavigationMixin(LightningElement) {
