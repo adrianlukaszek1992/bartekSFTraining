@@ -1,6 +1,7 @@
 import { LightningElement, track, wire, api } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import getRecentModifiedAccounts from "@salesforce/apex/AccountListController.getRecentModifiedAccounts"
+import getSecondModifiedAccounts from "@salesforce/apex/AccountListController.getSecondModifiedAccounts"
 
 // Fields to Display for Selected record in RecordForm
 const fields=['Name','AccountNumber','OwnerId','AccountSource','ParentId','AnnualRevenue','Type','CreatedById','LastModifiedById','Industry','Phone'];
@@ -17,14 +18,23 @@ const columns = [
     {label: 'Num. of locations', fieldName: 'NumberofLocations__c', type: 'text'},
     {label: 'last modified by', fieldName: 'LastModifiedById', type: 'text'},
 ];
+const secondColumns = [ 
+    {label: 'Id', fieldName: 'Id', type: 'text'},
+    {label: 'Account Number', fieldName: 'AccountNumber', type: 'text'},
+    {label: 'Type', fieldName: 'Type', type: 'text'},
+    {label: 'Industry', fieldName: 'Industry', type: 'text'},
+    {label: 'Site', fieldName: 'Site', type: 'text'}
+];
 
 export default class Sample_LWC extends NavigationMixin(LightningElement) {
     @api recordId;
     @track accounts;
+    @track secondAccounts;
     @track error;
     @track mapMarkers = [];
     fields = fields;
     columns = columns;
+    secondColumns = secondColumns;
     maxRowSelection = 1;
     zoomLevel=16;
 
@@ -39,7 +49,6 @@ export default class Sample_LWC extends NavigationMixin(LightningElement) {
                     OwnerId: '/lightning/r/'+account.Owner.Id+'/view',
                     OwnerName: account.Owner.Name,
                 });
-                
                     rows.push(accountObj);
                 
             });
@@ -48,7 +57,14 @@ export default class Sample_LWC extends NavigationMixin(LightningElement) {
             this.error = error; 
         }
     }
-
+    @wire(getSecondModifiedAccounts)
+    wiredSecondAccounts({error, data}){
+        if(data){                
+            this.secondAccounts = data;
+        }else{
+            this.error = error; 
+        }
+    }
     getSelectedAccount( event ){
         const account = event.detail.selectedRows[0];
         this.recordId = account.Id;

@@ -40,4 +40,18 @@
             </lightning-layout>
         </div>
     </template>
+    <lightning-card title="Accounts" icon-name="standard:account">
+        <!-- Data table to diplay accounts -->
+        <div class="table-accounts">
+            <lightning-datatable 
+                data={secondAccounts}
+                columns={secondColumns}
+                key-field="id"
+                max-row-selection={maxRowSelection}
+                show-row-number-column=true
+                class="ls-datatable"
+                min-column-width="185px">
+            </lightning-datatable>  
+        </div>
+    </lightning-card>
 </template>
