@@ -22,4 +22,10 @@ public with sharing class AccountListController {
                 Order By LastModifiedDate desc 
                 limit 3];
     }
+    @AuraEnabled(cacheable=true)
+    public static list<Account> getSecondModifiedAccounts(){
+        return [SELECT Id, AccountNumber, Type, Industry, Site
+                FROM Account  
+                limit 10];
+    }
 }
