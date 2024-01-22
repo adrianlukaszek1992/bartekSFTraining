@@ -28,4 +28,11 @@ public with sharing class AccountListController {
                 FROM Account  
                 limit 10];
     }
+    @AuraEnabled(cacheable=true)
+    public static list<Account> getThirdModifiedAccounts (){
+                return [SELECT Id, Name, Industry, Site, OwnerId, Owner.Name, AccountSource, CreatedDate
+                FROM Account  Where Name like 'P%'
+                Order By CreatedDate asc
+                limit 15];
+    }
 }
