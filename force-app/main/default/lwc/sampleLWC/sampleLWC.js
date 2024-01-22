@@ -2,6 +2,8 @@ import { LightningElement, track, wire, api } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import getRecentModifiedAccounts from "@salesforce/apex/AccountListController.getRecentModifiedAccounts"
 import getSecondModifiedAccounts from "@salesforce/apex/AccountListController.getSecondModifiedAccounts"
+import getThirdModifiedAccounts from "@salesforce/apex/AccountListController.getThirdModifiedAccounts"
+
 
 // Fields to Display for Selected record in RecordForm
 const fields=['Name','AccountNumber','OwnerId','AccountSource','ParentId','AnnualRevenue','Type','CreatedById','LastModifiedById','Industry','Phone'];
@@ -25,16 +27,26 @@ const secondColumns = [
     {label: 'Industry', fieldName: 'Industry', type: 'text'},
     {label: 'Site', fieldName: 'Site', type: 'text'}
 ];
+const columnsWithoutP = [
+    {label: 'Account Name', fieldName: 'Name', type: 'text'},
+    {label: 'Industry', fieldName: 'Industry', type: 'text'},
+    {label: 'Site', fieldName: 'Site', type: 'text'},
+    {label: 'OwnerId', fieldName: 'OwnerId', type: 'url', typeAttributes: { label:{fieldName:'OwnerId'}, tooltip:{fieldName:'OwnerId'}, target: '_parent'}},
+    {label: 'Owner Name', fieldName: 'OwnerId', type: 'url', typeAttributes: { label:{fieldName:'OwnerName'}, tooltip:{fieldName:'OwnerName'}, target: '_parent'}},
+    {label: 'Account Source', fieldName: 'AccountSource', type: 'text'},
+ ];
 
 export default class Sample_LWC extends NavigationMixin(LightningElement) {
     @api recordId;
     @track accounts;
     @track secondAccounts;
+    @track thirdAccounts;
     @track error;
     @track mapMarkers = [];
     fields = fields;
     columns = columns;
     secondColumns = secondColumns;
+    columnsWithoutP = columnsWithoutP;
     maxRowSelection = 1;
     zoomLevel=16;
 
@@ -61,6 +73,14 @@ export default class Sample_LWC extends NavigationMixin(LightningElement) {
     wiredSecondAccounts({error, data}){
         if(data){                
             this.secondAccounts = data;
+        }else{
+            this.error = error; 
+        }
+    }
+    @wire(getThirdModifiedAccounts)
+    wiredThirdAccounts({error, data}){
+        if(data){                
+            this.thirdAccounts = data;
         }else{
             this.error = error; 
         }
