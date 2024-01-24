@@ -28,4 +28,10 @@ public with sharing class AccountListController {
                 FROM Account  
                 limit 10];
     }
+    @AuraEnabled(cacheable=true)
+    public static list<Account> getModifiedAccountsWithoutP(){
+        return [SELECT OwnerID, Name, Owner.Name, AccountSource, Industry, Site
+                FROM Account  Where not Name like 'P%'
+                limit 15];
+    }
 }
