@@ -54,4 +54,18 @@
             </lightning-datatable>  
         </div>
     </lightning-card>
+    <lightning-card title="accounts not starting with the letter P" icon-name="standard:account">
+        <!-- Data table to diplay accounts -->
+        <div class="table-accounts">
+            <lightning-datatable 
+                data={accountsWithoutP}
+                columns={columnsWithoutP}
+                key-field="id"
+                max-row-selection={maxRowSelection}
+                show-row-number-column=true
+                class="ls-datatable"
+                min-column-width="185px">
+            </lightning-datatable>  
+        </div>
+    </lightning-card>
 </template>
